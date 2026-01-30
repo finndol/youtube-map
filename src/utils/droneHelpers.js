@@ -49,5 +49,5 @@ export function getDroneCapacity(droneName) {
  * @returns {string} Description text
  */
 export function getDroneDescription(droneName) {
-  return 'Advanced electric propulsion system with whisper-quiet rotors. Designed for urban air mobility and rapid executive transport. Features autonomous navigation assist.'
+  return 'Advanced electric propulsion system with whisper-quiet rotors. Designed for urban air mobility and rapid executive transport.'
 }

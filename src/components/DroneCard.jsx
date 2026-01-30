@@ -52,8 +52,10 @@ function DroneCard({ drone, onClose }) {
               <rect x="6" y="9" width="9" height="6" fill="currentColor"/>
             </svg>
           </div>
-          <div className="stat-value">{drone.battery}%</div>
-          <div className="stat-label">Charge</div>
+          <div className="stat-card-content">
+            <div className="stat-value">{drone.battery}</div>
+            <div className="stat-label">Charge</div>
+          </div>
         </div>
 
         {/* Range Stat */}
@@ -65,8 +67,10 @@ function DroneCard({ drone, onClose }) {
               <circle cx="12" cy="12" r="2" fill="currentColor"/>
             </svg>
           </div>
-          <div className="stat-value">{drone.range}</div>
-          <div className="stat-label">Range (km)</div>
+          <div className="stat-card-content">
+            <div className="stat-value">{drone.range}</div>
+            <div className="stat-label">Range (km)</div>
+          </div>
         </div>
 
         {/* Capacity Stat */}
@@ -79,8 +83,10 @@ function DroneCard({ drone, onClose }) {
               <path d="M20 20V18.5C20 17.1193 18.8807 16 17.5 16H16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <div className="stat-value">{capacity}</div>
-          <div className="stat-label">Capacity</div>
+          <div className="stat-card-content">
+            <div className="stat-value">{capacity}</div>
+            <div className="stat-label">Capacity</div>
+          </div>
         </div>
       </div>
 
