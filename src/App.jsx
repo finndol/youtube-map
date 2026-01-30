@@ -9,7 +9,7 @@ function App() {
   const [viewState, setViewState] = useState({
     longitude: -0.1276,
     latitude: 51.5074,
-    zoom: 11
+    zoom: 12
   })
 
   return (
