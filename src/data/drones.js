@@ -1,5 +1,15 @@
+/**
+ * Calculate drone range based on battery level
+ * @param {number} battery - Battery percentage (0-100)
+ * @returns {number} Range in kilometers
+ */
+function calculateRange(battery) {
+  if (battery < 25) return Math.floor(Math.random() * 6) + 5; // 5-10km
+  if (battery < 50) return Math.floor(Math.random() * 11) + 10; // 10-20km
+  return Math.floor(Math.random() * 21) + 20; // 20-40km
+}
 
-export default drones = [
+const drones = [
   // Standby drones (11 total - green markers)
   {
     id: 'DR-001',
@@ -202,3 +212,5 @@ export default drones = [
     coordinates: { lat: 51.5476, lng: -0.1372 } // Near Kentish Town
   }
 ];
+
+export default drones;
