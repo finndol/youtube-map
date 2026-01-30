@@ -12,6 +12,16 @@ function App() {
     zoom: 12
   })
 
+  const [selectedDrone, setSelectedDrone] = useState(null)
+
+  const handleDroneSelect = (droneId) => {
+    setSelectedDrone(droneId)
+  }
+
+  const handleDroneDeselect = () => {
+    setSelectedDrone(null)
+  }
+
   return (
     <div className="map-container">
       <Map
@@ -27,8 +37,12 @@ function App() {
             latitude={drone.coordinates.lat}
           >
             <div 
-              className="marker" 
+              className={`marker ${drone.id === selectedDrone ? 'selected' : ''}`}
               style={{ backgroundColor: getMarkerColor(drone) }}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleDroneSelect(drone.id)
+              }}
               title={`${drone.name} - ${drone.id}`}
             />
           </Marker>
