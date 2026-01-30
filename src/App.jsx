@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import Map, { Marker } from 'react-map-gl/mapbox'
+import Map, { Marker, Popup } from 'react-map-gl/mapbox'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './App.css'
 import drones from './data/drones'
 import { getMarkerColor } from './utils/droneHelpers'
+import DronePopup from './components/DronePopup'
 
 function App() {
   const [viewState, setViewState] = useState({
@@ -13,6 +14,7 @@ function App() {
   })
 
   const [selectedDrone, setSelectedDrone] = useState(null)
+  const [hoveredDrone, setHoveredDrone] = useState(null)
 
   const handleDroneSelect = (droneId) => {
     setSelectedDrone(droneId)
@@ -43,10 +45,25 @@ function App() {
                 e.stopPropagation()
                 handleDroneSelect(drone.id)
               }}
+              onMouseEnter={() => setHoveredDrone(drone)}
+              onMouseLeave={() => setHoveredDrone(null)}
               title={`${drone.name} - ${drone.id}`}
             />
           </Marker>
         ))}
+        
+        {hoveredDrone && (
+          <Popup
+            longitude={hoveredDrone.coordinates.lng}
+            latitude={hoveredDrone.coordinates.lat}
+            closeButton={false}
+            closeOnClick={false}
+            anchor="bottom"
+            offset={20}
+          >
+            <DronePopup drone={hoveredDrone} />
+          </Popup>
+        )}
       </Map>
     </div>
   )
