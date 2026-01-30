@@ -39,3 +39,55 @@
 .marker.selected:hover {
   transform: scale(1.1);
 }
+
+/* Complete Mapbox popup style reset */
+.mapboxgl-popup {
+  max-width: none !important;
+}
+
+.mapboxgl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.mapboxgl-popup-tip {
+  display: none !important;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  display: none !important;
+}
+
+/* Custom Drone Popup Styling */
+.drone-popup {
+  background: #FFFFFF;
+  border-radius: 100px;
+  padding: 8px 16px;
+  min-width: 124px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.drone-popup-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+}
+
+.drone-popup-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.1);
+}
