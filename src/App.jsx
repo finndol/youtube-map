@@ -20,6 +20,7 @@ function App() {
   const [selectedDrone, setSelectedDrone] = useState(null)
   const [hoveredDrone, setHoveredDrone] = useState(null)
   const [preSelectionZoom, setPreSelectionZoom] = useState(null)
+  const [exitingDrone, setExitingDrone] = useState(null)
   
   const mapRef = useRef(null)
 
@@ -34,7 +35,19 @@ function App() {
       setPreSelectionZoom(viewState.zoom)
     }
 
-    setSelectedDrone(droneId)
+    // If switching drones, animate out old card first, then show new card
+    if (selectedDrone && selectedDrone !== droneId) {
+      setExitingDrone(selectedDrone)
+      setSelectedDrone(null) // Hide current card immediately
+      
+      // After fade out completes, show new card
+      setTimeout(() => {
+        setExitingDrone(null)
+        setSelectedDrone(droneId)
+      }, 200)
+    } else {
+      setSelectedDrone(droneId)
+    }
 
     // Fly to drone - only zoom in on first selection
     if (mapRef.current) {
@@ -127,10 +140,24 @@ function App() {
         onDroneHover={handleTableHover}
       />
 
-      <DroneCard 
-        drone={drones.find(d => d.id === selectedDrone)} 
-        onClose={handleDroneDeselect}
-      />
+      {/* Exiting card */}
+      {exitingDrone && (
+        <DroneCard 
+          key={`exiting-${exitingDrone}`}
+          drone={drones.find(d => d.id === exitingDrone)} 
+          onClose={handleDroneDeselect}
+          isExiting={true}
+        />
+      )}
+      
+      {/* Active card */}
+      {selectedDrone && (
+        <DroneCard 
+          key={selectedDrone}
+          drone={drones.find(d => d.id === selectedDrone)} 
+          onClose={handleDroneDeselect}
+        />
+      )}
     </>
   )
 }
