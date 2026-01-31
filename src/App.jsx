@@ -20,7 +20,6 @@ function App() {
   const [selectedDrone, setSelectedDrone] = useState(null)
   const [hoveredDrone, setHoveredDrone] = useState(null)
   const [preSelectionZoom, setPreSelectionZoom] = useState(null)
-  const [exitingDrone, setExitingDrone] = useState(null)
   
   const mapRef = useRef(null)
 
@@ -30,24 +29,17 @@ function App() {
 
     const isFirstSelection = selectedDrone === null
     
+    // #region agent log
+    fetch('http://127.0.0.1:7243/ingest/8e58a966-9876-4f24-bc09-47b74c79ad18',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.jsx:handleDroneSelect',message:'handleDroneSelect called',data:{droneId,isFirstSelection,currentSelectedDrone:selectedDrone},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A',runId:'post-fix'})}).catch(()=>{});
+    // #endregion
+    
     if (isFirstSelection) {
       // Store current zoom before zooming in
       setPreSelectionZoom(viewState.zoom)
     }
 
-    // If switching drones, animate out old card first, then show new card
-    if (selectedDrone && selectedDrone !== droneId) {
-      setExitingDrone(selectedDrone)
-      setSelectedDrone(null) // Hide current card immediately
-      
-      // After fade out completes, show new card
-      setTimeout(() => {
-        setExitingDrone(null)
-        setSelectedDrone(droneId)
-      }, 200)
-    } else {
-      setSelectedDrone(droneId)
-    }
+    // Simply set the new drone - animation handled by CSS with unique key
+    setSelectedDrone(droneId)
 
     // Fly to drone - only zoom in on first selection
     if (mapRef.current) {
@@ -140,23 +132,18 @@ function App() {
         onDroneHover={handleTableHover}
       />
 
-      {/* Exiting card */}
-      {exitingDrone && (
-        <DroneCard 
-          key={`exiting-${exitingDrone}`}
-          drone={drones.find(d => d.id === exitingDrone)} 
-          onClose={handleDroneDeselect}
-          isExiting={true}
-        />
-      )}
-      
-      {/* Active card */}
+      {/* Active card - key ensures fresh animation on drone change */}
       {selectedDrone && (
-        <DroneCard 
-          key={selectedDrone}
-          drone={drones.find(d => d.id === selectedDrone)} 
-          onClose={handleDroneDeselect}
-        />
+        <>
+          {/* #region agent log */}
+          {(() => { fetch('http://127.0.0.1:7243/ingest/8e58a966-9876-4f24-bc09-47b74c79ad18',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.jsx:render:activeCard',message:'Rendering active card',data:{selectedDrone},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D',runId:'post-fix'})}).catch(()=>{}); return null; })()}
+          {/* #endregion */}
+          <DroneCard 
+            key={selectedDrone}
+            drone={drones.find(d => d.id === selectedDrone)} 
+            onClose={handleDroneDeselect}
+          />
+        </>
       )}
     </>
   )

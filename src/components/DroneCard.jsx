@@ -1,14 +1,28 @@
+import { useEffect } from 'react'
 import { getStatusDisplay, getDroneCapacity, getDroneDescription } from '../utils/droneHelpers'
 
-function DroneCard({ drone, onClose, isExiting = false }) {
+function DroneCard({ drone, onClose }) {
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7243/ingest/8e58a966-9876-4f24-bc09-47b74c79ad18',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DroneCard.jsx:mount',message:'DroneCard mounted',data:{droneId:drone?.id,droneName:drone?.name},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D',runId:'post-fix'})}).catch(()=>{});
+    return () => {
+      fetch('http://127.0.0.1:7243/ingest/8e58a966-9876-4f24-bc09-47b74c79ad18',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DroneCard.jsx:unmount',message:'DroneCard unmounting',data:{droneId:drone?.id,droneName:drone?.name},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D',runId:'post-fix'})}).catch(()=>{});
+    };
+  }, []);
+  // #endregion
+
   if (!drone) return null
 
   const statusInfo = getStatusDisplay(drone)
   const capacity = getDroneCapacity(drone.name)
   const description = getDroneDescription(drone.name)
 
+  // #region agent log
+  fetch('http://127.0.0.1:7243/ingest/8e58a966-9876-4f24-bc09-47b74c79ad18',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DroneCard.jsx:render',message:'DroneCard rendering',data:{droneId:drone?.id},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'B',runId:'post-fix'})}).catch(()=>{});
+  // #endregion
+
   return (
-    <div className={`drone-card ${isExiting ? 'drone-card-exiting' : ''}`}>
+    <div className="drone-card">
       {/* Header with status badge and close button */}
       <div className="drone-card-header">
         <div className="drone-card-status" style={{ '--status-color': statusInfo.color }}>
@@ -53,7 +67,7 @@ function DroneCard({ drone, onClose, isExiting = false }) {
             </svg>
           </div>
           <div className="stat-card-content">
-            <div className="stat-value">{drone.battery}</div>
+            <div className="stat-value">{drone.battery}%</div>
             <div className="stat-label">Charge</div>
           </div>
         </div>
@@ -68,8 +82,8 @@ function DroneCard({ drone, onClose, isExiting = false }) {
             </svg>
           </div>
           <div className="stat-card-content">
-            <div className="stat-value">{drone.range}</div>
-            <div className="stat-label">Range (km)</div>
+            <div className="stat-value">{drone.range} km</div>
+            <div className="stat-label">Range</div>
           </div>
         </div>
 
