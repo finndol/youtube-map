@@ -324,3 +324,294 @@
     max-width: 340px;
   }
 }
+
+/* Fleet Table Styles */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fleet-table {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 380px;
+  background: rgba(23, 23, 23, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 24px;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: slideInLeft 0.3s ease-out;
+  color: #FFFFFF;
+}
+
+.fleet-table-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
+}
+
+/* Status Cards */
+.fleet-status-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.status-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid transparent;
+}
+
+.status-card-active {
+  border-color: rgba(61, 169, 255, 0.5);
+  background: rgba(61, 169, 255, 0.1);
+}
+
+.status-card-ready {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.status-card-lowbat {
+  border-color: rgba(255, 159, 61, 0.5);
+  background: rgba(255, 159, 61, 0.1);
+}
+
+.status-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.status-card-active .status-card-header {
+  color: #3DA9FF;
+}
+
+.status-card-ready .status-card-header {
+  color: #10B981;
+}
+
+.status-card-lowbat .status-card-header {
+  color: #FF9F3D;
+}
+
+.status-card-count {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Fleet Table Wrapper */
+.fleet-table-wrapper {
+  max-height: 150px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-right: -10px;
+  padding-right: 10px;
+  position: relative;
+}
+
+.fleet-table-wrapper.expanded {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* Fade-out gradient overlay */
+.fleet-table-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 10px;
+  height: 32px;
+  background: linear-gradient(
+    to bottom,
+    rgba(23, 23, 23, 0) 0%,
+    rgba(23, 23, 23, 0.35) 35%,
+    rgba(23, 23, 23, 0.7) 65%,
+    rgba(23, 23, 23, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+/* Custom Scrollbar */
+.fleet-table-wrapper.expanded::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fleet-table-wrapper.expanded::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.fleet-table-wrapper.expanded::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.fleet-table-wrapper.expanded::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Drone Table */
+.fleet-drone-table {
+  width: 342px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.fleet-drone-table thead th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+  letter-spacing: 0.5px;
+  padding: 8px 8px 12px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fleet-drone-table thead th:nth-child(1) {
+  width: 35%;
+}
+
+.fleet-drone-table thead th:nth-child(2) {
+  width: 25%;
+}
+
+.fleet-drone-table thead th:nth-child(3) {
+  width: 20%;
+}
+
+.fleet-drone-table thead th:nth-child(4) {
+  width: 20%;
+}
+
+.fleet-drone-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.fleet-drone-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.fleet-drone-table tbody tr.selected {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.fleet-drone-table tbody td {
+  padding: 12px 8px;
+  font-size: 13px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fleet-drone-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Model Cell */
+.model-cell {
+  font-weight: 500;
+}
+
+.model-cell-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+}
+
+.status-dot-table {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Battery Cell */
+.battery-cell {
+  color: #9CA3AF;
+}
+
+.battery-cell-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.battery-icon-small {
+  color: inherit;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Toggle Button */
+.fleet-table-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #9CA3AF;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 16px 0 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.fleet-table-toggle:hover {
+  color: #FFFFFF;
+}
+
+.fleet-table-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.fleet-table-toggle svg.rotated {
+  transform: rotate(180deg);
+}
+
+/* Fleet Table Responsive */
+@media (max-width: 768px) {
+  .fleet-table {
+    width: 360px;
+    padding: 20px;
+    top: 16px;
+    left: 16px;
+  }
+
+  .status-card-count {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fleet-table {
+    width: calc(100vw - 32px);
+    max-width: 340px;
+  }
+}
