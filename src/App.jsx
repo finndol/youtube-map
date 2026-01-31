@@ -6,6 +6,7 @@ import drones from './data/drones'
 import { getMarkerColor } from './utils/droneHelpers'
 import DronePopup from './components/DronePopup'
 import DroneCard from './components/DroneCard'
+import FleetTable from './components/FleetTable'
 
 function App() {
   const [viewState, setViewState] = useState({
@@ -23,6 +24,15 @@ function App() {
 
   const handleDroneDeselect = () => {
     setSelectedDrone(null)
+  }
+
+  const handleTableHover = (droneId) => {
+    if (droneId) {
+      const drone = drones.find(d => d.id === droneId)
+      setHoveredDrone(drone)
+    } else {
+      setHoveredDrone(null)
+    }
   }
 
   return (
@@ -68,6 +78,13 @@ function App() {
           )}
         </Map>
       </div>
+
+      <FleetTable
+        drones={drones}
+        selectedDrone={selectedDrone}
+        onDroneSelect={handleDroneSelect}
+        onDroneHover={handleTableHover}
+      />
 
       <DroneCard 
         drone={drones.find(d => d.id === selectedDrone)} 
