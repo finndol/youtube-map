@@ -1,6 +1,6 @@
 import { getStatusDisplay, getDroneCapacity, getDroneDescription } from '../utils/droneHelpers'
 
-function DroneCard({ drone, onClose }) {
+function DroneCard({ drone, onClose, isExiting = false }) {
   if (!drone) return null
 
   const statusInfo = getStatusDisplay(drone)
@@ -8,7 +8,7 @@ function DroneCard({ drone, onClose }) {
   const description = getDroneDescription(drone.name)
 
   return (
-    <div className="drone-card">
+    <div className={`drone-card ${isExiting ? 'drone-card-exiting' : ''}`}>
       {/* Header with status badge and close button */}
       <div className="drone-card-header">
         <div className="drone-card-status" style={{ '--status-color': statusInfo.color }}>
