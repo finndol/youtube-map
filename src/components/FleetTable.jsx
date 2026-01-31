@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { getMarkerColor } from '../utils/droneHelpers'
 
 /**
@@ -23,6 +23,18 @@ export default function FleetTable({
   onDroneHover 
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const hoverTimeoutRef = useRef(null)
+
+  const handleMouseEnter = (droneId) => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      onDroneHover(droneId)
+    }, 400)
+  }
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeoutRef.current)
+    onDroneHover(null)
+  }
 
   // Categorize and count drones
   const counts = useMemo(() => {
@@ -122,8 +134,8 @@ export default function FleetTable({
                   key={drone.id}
                   className={isSelected ? 'selected' : ''}
                   onClick={() => onDroneSelect(drone.id)}
-                  onMouseEnter={() => onDroneHover(drone.id)}
-                  onMouseLeave={() => onDroneHover(null)}
+                  onMouseEnter={() => handleMouseEnter(drone.id)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <td className="model-cell">
                     <span className="model-cell-content">
