@@ -149,6 +149,10 @@ export default function FleetTable({
             })}
           </tbody>
         </table>
+        {/* Fade-out gradient overlay (only visible when collapsed) */}
+        {!isExpanded && (
+          <div className="fleet-table-fade" />
+        )}
       </div>
 
       {/* Expand/Collapse Button */}
