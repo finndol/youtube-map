@@ -423,6 +423,8 @@
   max-height: 140px;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  margin-right: -10px;
+  padding-right: 10px;
 }
 
 .fleet-table-wrapper.expanded {
@@ -451,7 +453,7 @@
 
 /* Drone Table */
 .fleet-drone-table {
-  width: 100%;
+  width: 342px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -577,7 +579,7 @@
 /* Fleet Table Responsive */
 @media (max-width: 768px) {
   .fleet-table {
-    width: 340px;
+    width: 360px;
     padding: 20px;
     top: 16px;
     left: 16px;
