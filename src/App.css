@@ -111,10 +111,10 @@
 
 /* Drone Card Styles */
 @keyframes cardFadeIn {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  100% {
     opacity: 1;
   }
 }
@@ -134,7 +134,8 @@
   padding: 20px;
   z-index: 1000;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  animation: cardFadeIn 0.25s ease-out forwards;
+  opacity: 0;
+  animation: cardFadeIn 0.25s ease-out 0.15s forwards;
   color: #FFFFFF;
 }
 

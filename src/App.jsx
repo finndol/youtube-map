@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl/mapbox'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './App.css'
@@ -9,12 +9,13 @@ import DroneCard from './components/DroneCard'
 import FleetTable from './components/FleetTable'
 
 const ZOOM_INCREMENT = 0.5; // Configurable zoom-in amount
+const DEFAULT_ZOOM = 12;
 
 function App() {
   const [viewState, setViewState] = useState({
     longitude: -0.1276,
     latitude: 51.5074,
-    zoom: 12
+    zoom: DEFAULT_ZOOM + 0.5 // Start zoomed in
   })
 
   const [selectedDrone, setSelectedDrone] = useState(null)
@@ -22,6 +23,21 @@ function App() {
   const [preSelectionZoom, setPreSelectionZoom] = useState(null)
   
   const mapRef = useRef(null)
+
+  // Zoom out animation on initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (mapRef.current) {
+        mapRef.current.easeTo({
+          zoom: DEFAULT_ZOOM,
+          duration: 1000,
+          easing: (t) => 1 - Math.pow(1 - t, 3) // Cubic ease-out
+        })
+      }
+    }, 100)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleDroneSelect = (droneId) => {
     const drone = drones.find(d => d.id === droneId)
