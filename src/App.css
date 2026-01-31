@@ -17,6 +17,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 
               0 0 0 2px rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .marker:hover {
@@ -25,20 +26,24 @@
               0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
-.marker.selected {
-  width: 32px;
-  height: 32px;
-  box-shadow: 
-    0 0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 20px rgba(255, 255, 255, 0.6),
-    0 4px 16px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  transform: scale(1);
+/* Radar Effect */
+@keyframes radar-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  98% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(3); opacity: 0; }
 }
 
-.marker.selected:hover {
-  transform: scale(1.1);
+.radar-effect::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  background-color: currentColor;
+  opacity: 0.4;
+  animation: radar-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  z-index: -1;
 }
+
 
 /* Complete Mapbox popup style reset */
 .mapboxgl-popup {
