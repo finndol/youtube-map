@@ -495,7 +495,6 @@
 
 .fleet-drone-table tbody tr.selected {
   background: rgba(255, 255, 255, 0.08);
-  border-left: 2px solid #3DA9FF;
 }
 
 .fleet-drone-table tbody td {
