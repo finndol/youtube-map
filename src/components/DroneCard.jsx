@@ -1,5 +1,13 @@
 import { useEffect } from 'react'
 import { getStatusDisplay, getDroneCapacity, getDroneDescription } from '../utils/droneHelpers'
+import skyrunnerX1 from '../assets/skyrunnerX1.png'
+import skyrunnerX2 from '../assets/skyrunnerX2.png'
+import droneMockup from '../assets/drone-mockup.png'
+
+const droneImages = {
+  'Skyrunner X1': skyrunnerX1,
+  'Skyrunner X2': skyrunnerX2,
+}
 
 function DroneCard({ drone, onClose }) {
   // #region agent log
@@ -41,7 +49,7 @@ function DroneCard({ drone, onClose }) {
       {/* Drone Image */}
       <div className="drone-card-image">
         <img 
-          src="src/assets/drone-mockup.png" 
+          src={droneImages[drone.name] || droneMockup} 
           alt={drone.name}
           onError={(e) => {
             e.target.style.display = 'none'
