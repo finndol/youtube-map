@@ -25,20 +25,6 @@
               0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
-.marker.selected {
-  width: 32px;
-  height: 32px;
-  box-shadow: 
-    0 0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 20px rgba(255, 255, 255, 0.6),
-    0 4px 16px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  transform: scale(1);
-}
-
-.marker.selected:hover {
-  transform: scale(1.1);
-}
 
 /* Complete Mapbox popup style reset */
 .mapboxgl-popup {
