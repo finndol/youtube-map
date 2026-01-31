@@ -69,6 +69,17 @@
 }
 
 /* Custom Drone Popup Styling */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .drone-popup {
   background: #FFFFFF;
   border-radius: 100px;
@@ -79,6 +90,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .drone-popup-name {
