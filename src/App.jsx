@@ -92,8 +92,8 @@ function App() {
               latitude={drone.coordinates.lat}
             >
               <div 
-                className="marker"
-                style={{ backgroundColor: getMarkerColor(drone) }}
+                className={`marker ${selectedDrone === drone.id ? 'radar-effect' : ''}`}
+                style={{ backgroundColor: getMarkerColor(drone), color: getMarkerColor(drone) }}
                 onClick={(e) => {
                   e.stopPropagation()
                   handleDroneSelect(drone.id)
@@ -105,14 +105,14 @@ function App() {
             </Marker>
           ))}
           
-          {hoveredDrone && (
+          {hoveredDrone && hoveredDrone.id !== selectedDrone && (
             <Popup
               longitude={hoveredDrone.coordinates.lng}
               latitude={hoveredDrone.coordinates.lat}
               closeButton={false}
               closeOnClick={false}
               anchor="bottom"
-              offset={20}
+              offset={25}
             >
               <DronePopup drone={hoveredDrone} />
             </Popup>
