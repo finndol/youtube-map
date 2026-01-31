@@ -50,7 +50,8 @@ export default function FleetTable({
     })
   }, [drones])
 
-  const visibleDrones = isExpanded ? sortedDrones : sortedDrones.slice(0, 3)
+  // Always render all drones - let CSS max-height handle visibility for smooth animations
+  const visibleDrones = sortedDrones
 
   return (
     <div className="fleet-table">
