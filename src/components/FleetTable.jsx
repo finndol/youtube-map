@@ -20,7 +20,8 @@ export default function FleetTable({
   drones, 
   selectedDrone, 
   onDroneSelect, 
-  onDroneHover 
+  onDroneHover,
+  showTable = true
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const hoverTimeoutRef = useRef(null)
@@ -66,7 +67,7 @@ export default function FleetTable({
   const visibleDrones = sortedDrones
 
   return (
-    <div className="fleet-table">
+    <div className={`fleet-table ${showTable ? 'visible' : ''}`}>
       {/* Header */}
       <h2 className="fleet-table-title">FLEET OVERVIEW</h2>
 
