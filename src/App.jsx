@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl/mapbox'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './App.css'
@@ -21,23 +21,25 @@ function App() {
   const [selectedDrone, setSelectedDrone] = useState(null)
   const [hoveredDrone, setHoveredDrone] = useState(null)
   const [preSelectionZoom, setPreSelectionZoom] = useState(null)
+  const [mapAnimationComplete, setMapAnimationComplete] = useState(false)
   
   const mapRef = useRef(null)
 
-  // Zoom out animation on initial load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (mapRef.current) {
-        mapRef.current.easeTo({
-          zoom: DEFAULT_ZOOM,
-          duration: 1000,
-          easing: (t) => 1 - Math.pow(1 - t, 3) // Cubic ease-out
-        })
-      }
-    }, 100)
-    
-    return () => clearTimeout(timer)
-  }, [])
+  // Zoom out animation when map finishes loading
+  const handleMapLoad = () => {
+    if (mapRef.current) {
+      mapRef.current.easeTo({
+        zoom: DEFAULT_ZOOM,
+        duration: 1000,
+        easing: (t) => 1 - Math.pow(1 - t, 3) // Cubic ease-out
+      })
+      
+      // Trigger table fade-in after zoom animation completes
+      setTimeout(() => {
+        setMapAnimationComplete(true)
+      }, 1000)
+    }
+  }
 
   const handleDroneSelect = (droneId) => {
     const drone = drones.find(d => d.id === droneId)
@@ -103,6 +105,7 @@ function App() {
           ref={mapRef}
           {...viewState}
           onMove={evt => setViewState(evt.viewState)}
+          onLoad={handleMapLoad}
           mapStyle="mapbox://styles/mapbox/dark-v11"
           mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
         >
@@ -146,6 +149,7 @@ function App() {
         selectedDrone={selectedDrone}
         onDroneSelect={handleDroneSelect}
         onDroneHover={handleTableHover}
+        showTable={mapAnimationComplete}
       />
 
       {/* Active card - key ensures fresh animation on drone change */}

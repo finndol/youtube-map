@@ -342,14 +342,14 @@
 }
 
 /* Fleet Table Styles */
-@keyframes slideInLeft {
+@keyframes tableFadeIn {
   from {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -365,8 +365,13 @@
   padding: 24px;
   z-index: 1000;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  animation: slideInLeft 0.3s ease-out;
   color: #FFFFFF;
+  opacity: 0;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.fleet-table.visible {
+  animation: tableFadeIn 0.5s ease-out forwards;
 }
 
 .fleet-table-title {
