@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Map, { Marker, Popup } from 'react-map-gl/mapbox'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './App.css'
@@ -7,6 +7,9 @@ import { getMarkerColor } from './utils/droneHelpers'
 import DronePopup from './components/DronePopup'
 import DroneCard from './components/DroneCard'
 import FleetTable from './components/FleetTable'
+import skyrunnerX1 from './assets/skyrunnerX1.png'
+import skyrunnerX2 from './assets/skyrunnerX2.png'
+import droneMockup from './assets/drone-mockup.png'
 
 const ZOOM_INCREMENT = 0.5; // Configurable zoom-in amount
 const DEFAULT_ZOOM = 12;
@@ -24,6 +27,16 @@ function App() {
   const [mapAnimationComplete, setMapAnimationComplete] = useState(false)
   
   const mapRef = useRef(null)
+
+  // Preload drone images when app loads
+  useEffect(() => {
+    const imagesToPreload = [skyrunnerX1, skyrunnerX2, droneMockup]
+    
+    imagesToPreload.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [])
 
   // Zoom out animation when map finishes loading
   const handleMapLoad = () => {
